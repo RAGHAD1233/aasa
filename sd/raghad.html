@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لعبة الفراشات</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #e6f7ff; /* لون خلفية السماء */
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .butterfly {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: pink;
+      border-radius: 50%;
+      animation: fly 5s infinite linear;
+    }
+
+    .butterfly:before, .butterfly:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: pink;
+      border-radius: 50%;
+    }
+
+    .butterfly:before {
+      top: -20px;
+      left: -20px;
+    }
+
+    .butterfly:after {
+      top: -20px;
+      right: -20px;
+    }
+
+    @keyframes fly {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(50px, -50px) rotate(45deg);
+      }
+      50% {
+        transform: translate(-50px, -100px) rotate(-45deg);
+      }
+      75% {
+        transform: translate(-100px, 50px) rotate(20deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+    }
+
+    .buttons {
+      position: fixed;
+      bottom: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+
+    button.pink {
+      background-color: #ff69b4;
+    }
+
+    button.blue {
+      background-color: #6495ed;
+    }
+
+    button.green {
+      background-color: #32cd32;
+    }
+
+    button.yellow {
+      background-color: #ffd700;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+
+  <div class="buttons">
+    <button class="pink" onclick="changeColor('pink')">زهري</button>
+    <button class="blue" onclick="changeColor('blue')">أزرق</button>
+    <button class="green" onclick="changeColor('green')">أخضر</button>
+    <button class="yellow" onclick="changeColor('yellow')">أصفر</button>
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+
+    // إنشاء الفراشات بشكل عشوائي
+    for (let i = 0; i < 20; i++) {
+      const butterfly = document.createElement('div');
+      butterfly.classList.add('butterfly');
+      butterfly.style.left = Math.random() * window.innerWidth + 'px';
+      butterfly.style.top = Math.random() * window.innerHeight + 'px';
+      container.appendChild(butterfly);
+    }
+
+    // تغيير لون الفراشات
+    function changeColor(color) {
+      const butterflies = document.querySelectorAll('.butterfly');
+      butterflies.forEach(butterfly => {
+        butterfly.style.backgroundColor = color;
+        butterfly.style.setProperty('--wing-color', color);
+      });
+    }
+  </script>
+</body>
+</html>
